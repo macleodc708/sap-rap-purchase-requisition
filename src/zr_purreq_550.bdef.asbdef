@@ -75,7 +75,9 @@ authorization dependent by _PurReq
   association _PurReq { with draft; }
 
   field ( numbering : managed, readonly ) ItemUUID;
-  field ( readonly ) ParentUUID, ItemNo, NetAmount, CurrencyCode, LocalLastChangedAt;
+  // CurrencyCode darf nicht statisch readonly sein, da UnitPrice (Betrag) editierbar ist.
+  // Die Währung wird per Determination vom Kopf übernommen und ist in der UI ausgeblendet.
+  field ( readonly ) ParentUUID, ItemNo, NetAmount, LocalLastChangedAt;
   field ( mandatory ) Description, Quantity, Unit, UnitPrice;
 
   determination setItemDefaults on modify { create; }
