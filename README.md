@@ -109,6 +109,9 @@ Voraussetzungen: SAP BTP Trial mit ABAP Environment, Eclipse mit den **ABAP Deve
 4. **Aktivieren:** Nach dem Pull fragt Eclipse, welche Objekte aktiviert werden sollen. Alle auswählen und aktivieren.
    Bei Fehlern kann auch ein zweiter Durchgang mit *Activate inactive objects* (`Strg + Umschalt + F3`) helfen.
 5. **Service veröffentlichen:** Service Binding `ZUI_PURREQ_O4_550` öffnen und auf **Publish** klicken.
+   - Meldung *„Inbound service ZUI_PURREQ_O4_550_0001_… does not exist“*? Das ist ein bekanntes Verhalten bei per abapGit
+     importierten Service Bindings. Abhilfe: Binding löschen, dann Rechtsklick auf die Service Definition `ZUI_PURREQ_550` →
+     *New Service Binding* → Name `ZUI_PURREQ_O4_550`, Typ **OData V4 – UI** → aktivieren → *Publish*.
 6. **App testen:** Im Service Binding die Entität `PurchaseRequisition` auswählen und auf **Preview** klicken.
 
 ### Vier-Augen-Prinzip einschalten
