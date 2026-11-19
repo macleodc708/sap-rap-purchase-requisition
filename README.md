@@ -26,6 +26,8 @@ Das ist der Standard für Entwicklungen in SAP S/4HANA und auf der SAP BTP (ABAP
 | ![Eingereicht](docs/screenshots/02-eingereicht.png) | ![Freigegeben](docs/screenshots/03-freigegeben.png) |
 | **Abgelehnt** mit Begründung | **Weitere Anforderung** (280.000 EUR) |
 | ![Abgelehnt](docs/screenshots/04-abgelehnt.png) | ![Eingereicht](docs/screenshots/05-eingereicht-grosser-betrag.png) |
+| **Neue Anforderung**: Status und Währung vorbelegt | **Position**: Nettowert wird automatisch berechnet |
+| ![Neu](docs/screenshots/00-neue-bestellanforderung.png) | ![Position](docs/screenshots/06-position-nettowert.png) |
 
 ## Funktionen
 
