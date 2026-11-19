@@ -1,0 +1,7 @@
+@EndUserText.label: 'Purchase Requisition Service'
+define service ZUI_PURREQ_550 {
+  expose ZC_PurReq_550        as PurchaseRequisition;
+  expose ZC_PurReqItem_550    as Item;
+  expose I_CurrencyStdVH      as Currency;
+  expose I_UnitOfMeasureStdVH as UnitOfMeasure;
+}

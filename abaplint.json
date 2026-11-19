@@ -1,0 +1,51 @@
+{
+  "global": {
+    "files": "/src/**/*.*"
+  },
+  "dependencies": [
+    {
+      "url": "https://github.com/abaplint/deps",
+      "folder": "/deps",
+      "files": "/src/**/*.*"
+    }
+  ],
+  "syntax": {
+    "version": "Cloud",
+    "errorNamespace": "^(Z|Y|LCL_|TY_|LIF_|LHC_)"
+  },
+  "rules": {
+    "parser_error": true,
+    "check_syntax": true,
+    "cds_parser_error": true,
+    "unknown_types": true,
+    "begin_end_names": true,
+    "keyword_case": false,
+    "unused_variables": {
+      "skipNames": [
+        "failed",
+        "reported",
+        "mapped",
+        "requested_authorizations",
+        "requested_features"
+      ]
+    },
+    "xml_consistency": true,
+    "allowed_object_types": {
+      "allowed": [
+        "CLAS",
+        "DDLS",
+        "DDLX",
+        "BDEF",
+        "TABL",
+        "SRVD",
+        "SRVB",
+        "DEVC"
+      ]
+    },
+    "object_naming": {
+      "clas": "^ZC?L?",
+      "ddls": "^Z",
+      "tabl": "^Z"
+    }
+  }
+}

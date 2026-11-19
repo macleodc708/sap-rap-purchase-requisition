@@ -1,0 +1,115 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName:       'Purchase Requisition',
+    typeNamePlural: 'Purchase Requisitions',
+    title:          { type: #STANDARD, value: 'Title' },
+    description:    { type: #STANDARD, value: 'ReqID' }
+  },
+  presentationVariant: [{ sortOrder: [{ by: 'ReqID', direction: #DESC }], visualizations: [{ type: #AS_LINEITEM }] }]
+}
+annotate entity ZC_PurReq_550 with
+{
+  @UI.facet: [
+    { id: 'HeaderStatus', purpose: #HEADER,   type: #DATAPOINT_REFERENCE,  targetQualifier: 'Status', position: 10 },
+    { id: 'HeaderTotal',  purpose: #HEADER,   type: #DATAPOINT_REFERENCE,  targetQualifier: 'Total',  position: 20 },
+    { id: 'General',      purpose: #STANDARD, type: #FIELDGROUP_REFERENCE, targetQualifier: 'General',  label: 'General Information', position: 10 },
+    { id: 'Items',        purpose: #STANDARD, type: #LINEITEM_REFERENCE,   targetElement: '_Item',      label: 'Items',               position: 20 },
+    { id: 'Decision',     purpose: #STANDARD, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Decision', label: 'Decision',            position: 30 },
+    { id: 'Admin',        purpose: #STANDARD, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',    label: 'Administrative Data', position: 40 }
+  ]
+  @UI.hidden: true
+  ReqUUID;
+
+  @UI: {
+    lineItem: [
+      { position: 10, importance: #HIGH, label: 'Requisition No.' },
+      { type: #FOR_ACTION, dataAction: 'submit',  label: 'Submit for Approval' },
+      { type: #FOR_ACTION, dataAction: 'approve', label: 'Approve' },
+      { type: #FOR_ACTION, dataAction: 'reject',  label: 'Reject' }
+    ],
+    identification: [
+      { type: #FOR_ACTION, dataAction: 'submit',   label: 'Submit for Approval', position: 10 },
+      { type: #FOR_ACTION, dataAction: 'withdraw', label: 'Withdraw',            position: 20 },
+      { type: #FOR_ACTION, dataAction: 'approve',  label: 'Approve',             position: 30 },
+      { type: #FOR_ACTION, dataAction: 'reject',   label: 'Reject',              position: 40 }
+    ],
+    selectionField: [{ position: 10 }]
+  }
+  @EndUserText.label: 'Requisition No.'
+  ReqID;
+
+  @UI: { lineItem: [{ position: 20, importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'General', position: 10 }] }
+  @EndUserText.label: 'Title'
+  Title;
+
+  @UI: { fieldGroup: [{ qualifier: 'General', position: 20 }],
+         multiLineText: true }
+  @EndUserText.label: 'Description'
+  Description;
+
+  @UI: { lineItem: [{ position: 30, importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'General', position: 30 }],
+         selectionField: [{ position: 20 }] }
+  @EndUserText.label: 'Cost Center'
+  CostCenter;
+
+  @UI: { lineItem: [{ position: 40, importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'General', position: 40 }],
+         selectionField: [{ position: 30 }] }
+  @EndUserText.label: 'Needed By'
+  NeededBy;
+
+  @UI: { lineItem: [{ position: 50, importance: #HIGH }],
+         dataPoint: { qualifier: 'Total', title: 'Total Amount' } }
+  @EndUserText.label: 'Total Amount'
+  TotalAmount;
+
+  @UI: { fieldGroup: [{ qualifier: 'General', position: 50 }] }
+  @EndUserText.label: 'Currency'
+  CurrencyCode;
+
+  @UI: { lineItem: [{ position: 60, importance: #HIGH, criticality: 'StatusCriticality' }],
+         selectionField: [{ position: 40 }],
+         dataPoint: { qualifier: 'Status', title: 'Status', criticality: 'StatusCriticality' },
+         textArrangement: #TEXT_ONLY }
+  @EndUserText.label: 'Status'
+  Status;
+
+  @UI.hidden: true
+  StatusText;
+
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI: { fieldGroup: [{ qualifier: 'Decision', position: 10 }] }
+  @EndUserText.label: 'Decided By'
+  DecidedBy;
+
+  @UI: { fieldGroup: [{ qualifier: 'Decision', position: 20 }] }
+  @EndUserText.label: 'Decided At'
+  DecidedAt;
+
+  @UI: { fieldGroup: [{ qualifier: 'Decision', position: 30 }] }
+  @EndUserText.label: 'Rejection Reason'
+  RejectionReason;
+
+  @UI: { fieldGroup: [{ qualifier: 'Admin', position: 10 }] }
+  @EndUserText.label: 'Requester'
+  LocalCreatedBy;
+
+  @UI: { fieldGroup: [{ qualifier: 'Admin', position: 20 }] }
+  @EndUserText.label: 'Created At'
+  LocalCreatedAt;
+
+  @UI.hidden: true
+  LocalLastChangedBy;
+
+  @UI: { fieldGroup: [{ qualifier: 'Admin', position: 30 }] }
+  @EndUserText.label: 'Changed At'
+  LocalLastChangedAt;
+
+  @UI.hidden: true
+  LastChangedAt;
+}

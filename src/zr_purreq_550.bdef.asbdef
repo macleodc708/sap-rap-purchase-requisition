@@ -1,0 +1,105 @@
+managed implementation in class zbp_r_purreq_550 unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZR_PurReq_550 alias PurReq
+persistent table zpr_req_550
+draft table zpr_req_d_550
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+{
+  create;
+  update ( features : instance );
+  delete ( features : instance );
+  association _Item { create ( features : instance ); with draft; }
+
+  field ( numbering : managed, readonly ) ReqUUID;
+  field ( readonly ) ReqID, Status, TotalAmount, DecidedBy, DecidedAt, RejectionReason,
+                     LocalCreatedBy, LocalCreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
+  field ( mandatory ) Title, CostCenter, NeededBy, CurrencyCode;
+
+  // Freigabeprozess
+  action ( features : instance ) submit   result [1] $self;
+  action ( features : instance ) withdraw result [1] $self;
+  action ( features : instance ) approve  result [1] $self;
+  action ( features : instance ) reject parameter ZD_RejectReason_550 result [1] $self;
+  internal action recalcTotal;
+
+  determination setInitialValues on modify { create; }
+  determination setReqID on save { create; }
+
+  validation validateNeededBy on save { create; field NeededBy; }
+
+  draft action ( features : instance ) Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateNeededBy;
+    validation Item~validateQuantity;
+  }
+
+  mapping for zpr_req_550
+  {
+    ReqUUID            = req_uuid;
+    ReqID              = req_id;
+    Title              = title;
+    Description        = description;
+    CostCenter         = cost_center;
+    NeededBy           = needed_by;
+    Status             = status;
+    TotalAmount        = total_amount;
+    CurrencyCode       = currency_code;
+    DecidedBy          = decided_by;
+    DecidedAt          = decided_at;
+    RejectionReason    = rejection_reason;
+    LocalCreatedBy     = local_created_by;
+    LocalCreatedAt     = local_created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt      = last_changed_at;
+  }
+}
+
+define behavior for ZR_PurReqItem_550 alias Item
+persistent table zpr_item_550
+draft table zpr_item_d_550
+etag master LocalLastChangedAt
+lock dependent by _PurReq
+authorization dependent by _PurReq
+{
+  update;
+  delete;
+  association _PurReq { with draft; }
+
+  field ( numbering : managed, readonly ) ItemUUID;
+  field ( readonly ) ParentUUID, ItemNo, NetAmount, CurrencyCode, LocalLastChangedAt;
+  field ( mandatory ) Description, Quantity, Unit, UnitPrice;
+
+  determination setItemDefaults on modify { create; }
+  determination calcNetAmount on modify { create; field Quantity, UnitPrice; }
+
+  validation validateQuantity on save { create; field Quantity; }
+
+  side effects
+  {
+    field Quantity affects field NetAmount, field _PurReq.TotalAmount;
+    field UnitPrice affects field NetAmount, field _PurReq.TotalAmount;
+  }
+
+  mapping for zpr_item_550
+  {
+    ItemUUID           = item_uuid;
+    ParentUUID         = parent_uuid;
+    ItemNo             = item_no;
+    Description        = description;
+    Quantity           = quantity;
+    Unit               = unit;
+    UnitPrice          = unit_price;
+    NetAmount          = net_amount;
+    CurrencyCode       = currency_code;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
