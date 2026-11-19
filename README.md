@@ -14,7 +14,18 @@ Das ist der Standard für Entwicklungen in SAP S/4HANA und auf der SAP BTP (ABAP
 > instance feature control, side effects, virtual elements and a Fiori elements UI via OData V4.
 > The same process is also implemented in SAP CAP, see the comparison below.
 
+![Bestellanforderung im Entwurf mit Position](docs/screenshots/01-anlegen-mit-position.png)
+
 ---
+
+## Screenshots aus dem SAP BTP ABAP Environment
+
+| | |
+|---|---|
+| **Eingereicht**: über 1.000 → Status „Submitted“ | **Freigegeben** |
+| ![Eingereicht](docs/screenshots/02-eingereicht.png) | ![Freigegeben](docs/screenshots/03-freigegeben.png) |
+| **Abgelehnt** mit Begründung | **Weitere Anforderung** (280.000 EUR) |
+| ![Abgelehnt](docs/screenshots/04-abgelehnt.png) | ![Eingereicht](docs/screenshots/05-eingereicht-grosser-betrag.png) |
 
 ## Funktionen
 
