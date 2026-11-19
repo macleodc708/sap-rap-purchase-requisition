@@ -114,6 +114,11 @@ Voraussetzungen: SAP BTP Trial mit ABAP Environment, Eclipse mit den **ABAP Deve
      *New Service Binding* → Name `ZUI_PURREQ_O4_550`, Typ **OData V4 – UI** → aktivieren → *Publish*.
 6. **App testen:** Im Service Binding die Entität `PurchaseRequisition` auswählen und auf **Preview** klicken.
 
+### Hinweis zu Mengeneinheiten im Trial-System
+
+Im gemeinsam genutzten Trial-System sind nicht alle Mengeneinheiten vollständig eingerichtet. Bei `PC` (Stück) erscheint
+z. B. *„No configuration for unit of measure 'PC'“*. Für Tests eignen sich Einheiten wie `KG`, `M` oder `L`.
+
 ### Vier-Augen-Prinzip einschalten
 
 Im Trial-System gibt es nur einen Benutzer. Deshalb ist die Prüfung „niemand entscheidet über seine eigene Anforderung“
